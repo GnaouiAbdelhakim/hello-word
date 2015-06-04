@@ -3,3 +3,10 @@ class res_partner {
 attributes and methods ...
 
 }
+
+
+class res_currency {
+
+attributes ...hh
+
+}
