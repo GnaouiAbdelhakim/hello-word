@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="res_partner_inherit1_form_view">
+                <field name="name">res.partner.inherit1.form</field>
+                <field name="model">res.partner</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="base.view_partner_form"/>
+                <field name="arch" type="xml">
+                	
+                	<xpath expr="//notebook" position="before">
+                		<separator string="Current Exercise" />
+                             <group colspan="4" col="4">
+                                <field name="current_invoice_turnover_v" attrs="{'invisible':[('customer','=',False)]}"/>
+                                <field name="current_order_turnover_v" attrs="{'invisible':[('customer','=',False)]}"/>
+                                <field name="current_invoice_purchase_v" attrs="{'invisible':[('supplier','=',False)]}"/>
+                                <field name="current_order_purchase_v" attrs="{'invisible':[('supplier','=',False)]}"/>
+                             </group>
+                             
+                             
+                        <separator string="Previous Exercise"/>
+                             <group colspan="4" col="4">
+                                <field name="previous_invoice_turnover_v" attrs="{'invisible':[('customer','=',False)]}"/>
+                                <field name="previous_order_turnover_v" attrs="{'invisible':[('customer','=',False)]}"/>
+                                <field name="previous_invoice_purchase_v" attrs="{'invisible':[('supplier','=',False)]}"/>
+                                <field name="previous_order_purchase_v" attrs="{'invisible':[('supplier','=',False)]}"/>
+                             </group>
+                             
+                	</xpath>
+                	
+                	<xpath expr="//page[@string='Contacts']" position="before">
+                 			<page string="Finance" >
+                 					<separator string="Customer Invoice" attrs="{'invisible':[('customer','=',False)]}"/>
+                 					<field name="customer_invoice_ids" nolabel="1" attrs="{'invisible':[('customer','=',False)]}">
+                        			 	<tree editable="bottom">
+                        			 		<field name="internal_number"/>
+                        			 		<field name="date_invoice"/>
+                        			 		<field name="date_due"/>
+                        			 		<field name="origin"/>
+                        			 		<field name="amount_untaxed" sum="Untaxed Amount"/>
+                        			 		<field name="amount_total" sum="Total Amount"/>
+                        			 		<field name="residual" sum="Residual Amount"/>
+                        			 		<field name="state"/>
+                                            <field name="currency_id" />
+                        			 	</tree>
+                        			 </field>
+                        			 
+                        		<separator string="Supplier Invoice" attrs="{'invisible':[('supplier','=',False)]}"/>
+                 					<field name="supplier_invoice_ids" nolabel="1" attrs="{'invisible':[('supplier','=',False)]}">
+                        			 	<tree editable="bottom">
+                        			 		<field name="internal_number"/>
+                        			 		<field name="date_invoice"/>
+                        			 		<field name="date_due"/>
+                        			 		<field name="origin"/>
+                        			 		<field name="amount_untaxed" sum="Untaxed Amount"/>
+                        			 		<field name="amount_total" sum="Total Amount"/>
+                        			 		<field name="residual" sum="Residual Amount"/>
+                        			 		<field name="state"/>
+                                            <field name="currency_id" />
+                        			 	</tree>
+                        			 </field>
+                 					
+                 			</page>
+                 			
+                 			<page string="Customer Activity" attrs="{'invisible':[('customer','=',False)]}" >
+                 				<separator string="Last 10 Sale Orders" attrs="{'invisible':[('customer','=',False)]}"/>
+                 				<field name="sale_order_ids" nolabel="1" attrs="{'invisible':[('customer','=',False)]}">
+                        			 	<tree editable="bottom">
+                        			 		<field name="name"/>
+                        			 		<field name="date_order"/>
+                        			 		<field name="amount_untaxed" sum="Untaxed Amount"/>
+                        			 		<field name="amount_total" sum="Total Amount"/>
+                        			 		<field name="user_id"/>
+                        			 		<field name="state"/>
+                                            <field name="currency_id" />
+                        			 	</tree>
+                        			 </field>
+                        			 
+                        	<separator string="Last 10 Saled Products" attrs="{'invisible':[('customer','=',False)]}"/>
+                 				<field name="sale_stock_move_ids" nolabel="1" attrs="{'invisible':[('customer','=',False)]}">
+                        			 	<tree editable="bottom">
+                        			 		<field name="product_id"/>
+                        			 		<field name="product_qty"/>
+                        			 		<field name="product_uom" />
+                        			 		<field name="picking_id" />
+                        			 		<field name="origin"/>
+                        			 		<field name="date"/>
+                        			 		<field name="state"/>
+                        			 	</tree>
+                        			 </field>
+                        			 
+                        	<separator string="Top 5 saled products" attrs="{'invisible':[('customer','=',False)]}"/>
+                 				 <field name="top_saled_stock_move_ids" nolabel="1" attrs="{'invisible':[('customer','=',False)]}">
+                        			 	<tree editable="bottom">
+                        			 		<field name="product_id"/>
+                        			 		<field name="product_uom" />
+                        			 		<field name="current_qty"/>
+                        			 		<field name="previous_qty" />
+                        			 		<field name="partner_id" invisible="1" />
+                        			 	</tree>
+                        </field> 
+                 				</page>
+                 			
+                 			<page string="Supplier Activity"  attrs="{'invisible':[('supplier','=',False)]}">
+                 			
+                 				<separator string="Last 10 Purchase Orders" attrs="{'invisible':[('supplier','=',False)]}"/>
+                 				<field name="purchase_order_ids" nolabel="1" attrs="{'invisible':[('supplier','=',False)]}">
+                        			 	<tree editable="bottom">
+                        			 		<field name="name"/>
+                        			 		<field name="date_order"/>
+                        			 		<field name="origin"/>
+                        			 		<field name="amount_untaxed" sum="Untaxed Amount"/>
+                        			 		<field name="amount_total" sum="Total Amount"/>
+                        			 		<field name="state"/>
+                                            <field name="currency_id" />
+                        			 	</tree>
+                        			 </field>
+                        			 
+                        	<separator string="Last 10 Purchased Products" attrs="{'invisible':[('supplier','=',False)]}"/>
+                 				<field name="purchase_stock_move_ids" nolabel="1" attrs="{'invisible':[('supplier','=',False)]}">
+                        			 	<tree editable="bottom">
+                        			 		<field name="product_id"/>
+                        			 		<field name="product_qty"/>
+                        			 		<field name="product_uom" />
+                        			 		<field name="picking_id" />
+                        			 		<field name="origin"/>
+                        			 		<field name="date"/>
+                        			 		<field name="state"/>
+                        			 	</tree>
+                        			 </field>
+                        			 
+                        	<separator string="Top 5 purchased products" attrs="{'invisible':[('supplier','=',False)]}"/>
+                 				 <field name="top_purchased_stock_move_ids" nolabel="1" attrs="{'invisible':[('supplier','=',False)]}">
+                        			 	<tree editable="bottom">
+                        			 		<field name="product_id"/>
+                        			 		<field name="product_uom" />
+                        			 		<field name="current_qty"/>
+                        			 		<field name="previous_qty" />
+                        			 		<field name="partner_id" invisible="1" />
+                        			 	</tree>
+                        </field> 		 
+                        	
+                        			 
+                 			</page>
+                	</xpath>
+                
+                </field>
+		</record>
+
+
+
+	</data>
+</openerp>
